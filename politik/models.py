@@ -19,6 +19,6 @@ class LawProject(models.Model):
 
 
 class Vote(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    law = models.ForeignKey(LawProject, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    law = models.ForeignKey(LawProject, on_delete=models.DO_NOTHING)
     vote = models.NullBooleanField(null=True)
