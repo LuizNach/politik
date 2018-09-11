@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
+from politik.models import Politician, LawProject
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -13,7 +14,13 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ('url', 'name')
 
-class YourSerializer(serializers.Serializer):
-   """Your data serializer, define your fields here."""
-   comments = serializers.IntegerField()
-   likes = serializers.IntegerField()
+class PoliticianSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Politician
+        fields = ('id', 'user_id', 'bio', 'location', 'office')
+
+class LawSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = LawProject
+        fields = ('id', 'description', 'passed')
+

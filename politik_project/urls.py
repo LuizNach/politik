@@ -24,6 +24,9 @@ from politik import views
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
+router.register(r'users/admin', views.UserViewDetails)
+router.register(r'politician', views.PoliticianViewSet)
+router.register(r'laws', views.LawsViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
