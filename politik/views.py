@@ -1,17 +1,11 @@
 from django.contrib.auth.models import User, Group
 
-from rest_framework import viewsets
-from .serialiazers import UserSerializer, GroupSerializer, YourSerializer
 from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import authentication, permissions
 
-from rest_framework import viewsets, response
+from rest_framework import viewsets
 from .serialiazers import UserSerializer, GroupSerializer, PoliticianSerializer, LawSerializer
 from politik.models import Politician, LawProject
 
-from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -22,13 +16,6 @@ class UserViewSet(viewsets.ModelViewSet):
     API endpoint that allows users to be viewed or edited.
     """
     queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-
-class UserViewDetails(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.filter(username="admin")
     serializer_class = UserSerializer
 
 class PoliticianViewSet(viewsets.ModelViewSet):
@@ -45,13 +32,6 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
-
-class YourView(APIView):
-
-    def get(self, request):
-        yourdata= [{"likes": 10, "comments": 0}, {"likes": 4, "comments": 23}]
-        results = YourSerializer(yourdata, many=True).data
-        return Response({"message": "Hello, world!"})
 
 @api_view()
 def hello_world(request):
