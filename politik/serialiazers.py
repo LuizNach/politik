@@ -12,3 +12,8 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ('url', 'name')
+
+class YourSerializer(serializers.Serializer):
+   """Your data serializer, define your fields here."""
+   comments = serializers.IntegerField()
+   likes = serializers.IntegerField()
