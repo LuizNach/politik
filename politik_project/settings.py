@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import pathlib
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +21,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v*3(s89l4_upx8ws9*fun=@4-tp%g(@i$pt987_)hq^y4i8^+v'
+with open(pathlib.Path.home().joinpath("secret-key")) as f:
+    SECRET_KEY = f.read().strip()
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,16 +78,18 @@ WSGI_APPLICATION = 'politik_project.wsgi.application'
 
 # Databasep
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+with open(pathlib.Path.home().joinpath("db-password")) as f:
+    DB_PASSWORD = f.read().strip()
 
 DATABASES = {
         'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'politik',
-        'USER': 'postgres',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'politik',
+            'USER': 'politik',
+            'PASSWORD':  DB_PASSWORD,
+            'HOST': 'politik-db.czhxslujvg3k.us-west-2.rds.amazonaws.com',
+            'PORT': '5432',
+        }
 }
 
 
