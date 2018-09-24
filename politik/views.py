@@ -9,6 +9,8 @@ from politik.models import Politician, LawProject
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+from .tasks import task_number_one
+
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -36,6 +38,7 @@ class GroupViewSet(viewsets.ModelViewSet):
 @api_view()
 def hello_world(request):
     queryset = ""
+    task_number_one.delay(jsons)
     return Response({"message": "Hello, world!"})
 
 

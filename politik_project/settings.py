@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 import pathlib
 from celery.schedules import crontab
-import librabbitmq
+import amqp
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,6 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 with open(pathlib.Path.home().joinpath("secret-key")) as f:
@@ -30,7 +31,8 @@ with open(pathlib.Path.home().joinpath("secret-key")) as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*'
+                 '']
 
 
 # Application definition
@@ -143,7 +145,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-CELERY_BROKER_URL = 'librabbitmq://guest:guest@ec2-54-149-173-164.us-west-2.compute.amazonaws.com:5672'
+CELERY_BROKER_URL = 'amqp://guest:guest@ec2-54-149-173-164.us-west-2.compute.amazonaws.com:5672'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
@@ -151,7 +153,7 @@ CELERY_TIMEZONE = 'America/Sao_Paulo'
 # Other Celery settings
 CELERY_BEAT_SCHEDULE = {
     'task-number-one': {
-        'task': 'app1.tasks.task_number_one',
-        'schedule': crontab(minute='*/3', hour=23)
+        'task': 'politik.tasks.task_number_one',
+        'schedule': crontab(minute='*/1')
     }
 }

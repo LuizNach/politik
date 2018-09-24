@@ -1,6 +1,8 @@
 from __future__ import absolute_import, unicode_literals
-from celery import task
+from celery import shared_task
+from politik.models import Politician, LawProject
 
-@task()
+@shared_task
 def task_number_one():
-    print("taks!")
+    print("bakljklajskld")
+    return '{} random users created with success!'

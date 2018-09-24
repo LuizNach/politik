@@ -7,8 +7,13 @@ import pika
 
 f = open('politicians.json','r')
 text = f.read()
-'''If we wanted to connect to a broker on a different machine we'd simply specify its name or IP address here.'''
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+credentials = pika.PlainCredentials('guest', 'guest')
+parameters = pika.ConnectionParameters('ec2-54-149-173-164.us-west-2.compute.amazonaws.com',
+                                       5672,
+                                       '/',
+                                       credentials)
+
+connection = pika.BlockingConnection(parameters)
 channel = connection.channel()
 
 channel.queue_declare(queue='politik_politicians')
