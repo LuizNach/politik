@@ -17,7 +17,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class PoliticianSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Politician
-        fields = ('id', 'user_id', 'bio', 'location', 'office', 'name')
+        fields = ('id', 'user_id', 'bio', 'location', 'office', 'name', 'photoURL')
 
 class LawSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

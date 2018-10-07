@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 class Politician(models.Model):
     name = models.TextField(max_length=200, blank=True)
     foreign_id = models.CharField(max_length=256, blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="followers")
+    followers = models.ManyToManyField(User)
     bio = models.TextField(max_length=500, blank=True)
     party = models.TextField(max_length=200, blank=True)
     fu = models.TextField(max_length=10, blank=True)
@@ -13,7 +14,6 @@ class Politician(models.Model):
     birthDate = models.DateField(null=True, blank=True)
     office = models.TextField(max_length=50, blank=True)
     photoURL = models.TextField(max_length=1000, blank=True)
-
 
 
 class LawProject(models.Model):

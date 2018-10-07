@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 from .serialiazers import UserSerializer, GroupSerializer, PoliticianSerializer, LawSerializer
 from politik.models import Politician, LawProject
+from django.core import serializers
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -37,9 +38,16 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 @api_view()
 def hello_world(request):
-    queryset = ""
-    task_number_one.delay(jsons)
-    return Response({"message": "Hello, world!"})
+    pol = Politician.objects.filter(user_id=23)
+    serializer = PoliticianSerializer(pol, many=True)
+    return Response(serializer.data)
+
+@api_view()
+def get_followed_politicians(request):
+    username = request.user.username
+    politicians = Politician.objects.filter(followers__username=username)
+    serializer = PoliticianSerializer(politicians, many=True)
+    return Response(serializer.data)
 
 
 
